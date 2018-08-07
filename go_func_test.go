@@ -1,4 +1,4 @@
-package go_ext_func
+package gofunc
 
 import "testing"
 
