@@ -28,14 +28,21 @@ func NewGoPool(concurrencyNumber int, f func(interface{})) *GoPool {
 	}
 }
 
+// 添加队列内容
 func (g *GoPool) Push(val interface{}) {
 	g.Lock()
 	defer g.Unlock()
 	g.queueChan <- val
 }
 
+// 关闭channel
 func (g *GoPool) Close() {
 	close(g.queueChan)
+}
+
+//重新打开channel
+func (g *GoPool) ReloadQueue() {
+	g.queueChan = make(chan interface{})
 }
 
 func (g *GoPool) Run() {

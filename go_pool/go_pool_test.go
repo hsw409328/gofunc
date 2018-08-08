@@ -15,8 +15,16 @@ func TestNewGoPool(t *testing.T) {
 		goPoolObject.Close()
 	}()
 	go func() {
+		time.Sleep(time.Second * 2)
+		goPoolObject.ReloadQueue()
+		for i := 550; i <= 5666; i++ {
+			goPoolObject.Push(i)
+		}
+		goPoolObject.Close()
+	}()
+	go func() {
 		// 3少后自动结束
-		time.Sleep(time.Second * 3)
+		time.Sleep(time.Second * 10)
 		goPoolObject.StopChan <- 1
 	}()
 	goPoolObject.Run()
