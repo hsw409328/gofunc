@@ -3,7 +3,7 @@ package go_pool
 import (
 	"sync"
 	"strconv"
-	"gofunc"
+	"github.com/hsw409328/gofunc"
 )
 
 // 连接池
