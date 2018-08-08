@@ -29,6 +29,8 @@ func NewGoPool(concurrencyNumber int, f func(interface{})) *GoPool {
 }
 
 func (g *GoPool) Push(val interface{}) {
+	g.Lock()
+	defer g.Unlock()
 	g.queueChan <- val
 }
 
