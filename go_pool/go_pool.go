@@ -46,7 +46,7 @@ func (g *GoPool) ReloadQueue() {
 }
 
 func (g *GoPool) Run() {
-	for i := 0; i <= g.concurrencyNumber; i++ {
+	for i := 0; i < g.concurrencyNumber; i++ {
 		go func(w int) {
 			for {
 				select {
