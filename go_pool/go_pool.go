@@ -40,7 +40,7 @@ func (g *GoPool) Close() {
 	close(g.queueChan)
 }
 
-//重新打开channel
+// 重新打开channel
 func (g *GoPool) ReloadQueue() {
 	g.queueChan = make(chan interface{})
 }
