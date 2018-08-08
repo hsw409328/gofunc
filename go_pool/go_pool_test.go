@@ -17,7 +17,7 @@ func TestNewGoPool(t *testing.T) {
 	go func() {
 		time.Sleep(time.Second * 2)
 		goPoolObject.ReloadQueue()
-		for i := 550; i <= 5666; i++ {
+		for i := 550; i <= 566; i++ {
 			goPoolObject.Push(i)
 		}
 		goPoolObject.Close()
