@@ -1,18 +1,11 @@
 package go_pool
 
-import (
-	"sync"
-	"strconv"
-	"github.com/hsw409328/gofunc"
-)
-
 // 连接池
 // 并发数
 // 队列
 // 执行回调方法
 // 锁
 type GoPool struct {
-	sync.Mutex
 	concurrencyNumber int
 	queueChan         chan interface{}
 	StopChan          chan int
@@ -30,8 +23,6 @@ func NewGoPool(concurrencyNumber int, f func(interface{})) *GoPool {
 
 // 添加队列内容
 func (g *GoPool) Push(val interface{}) {
-	g.Lock()
-	defer g.Unlock()
 	g.queueChan <- val
 }
 
@@ -52,7 +43,7 @@ func (g *GoPool) Run() {
 				select {
 				case queueVal, ok := <-g.queueChan:
 					if ok {
-						g.callFunc(strconv.Itoa(w) + "=" + gofunc.InterfaceToString(queueVal))
+						g.callFunc(queueVal)
 					}
 				}
 			}

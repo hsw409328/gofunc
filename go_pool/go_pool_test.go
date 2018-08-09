@@ -10,17 +10,17 @@ func TestNewGoPool(t *testing.T) {
 	goPoolObject := NewGoPool(10, CallFunc)
 	go func() {
 		for i := 0; i <= 10; i++ {
-			goPoolObject.Push(i)
+			 go goPoolObject.Push(i)
 		}
-		goPoolObject.Close()
+		//goPoolObject.Close()
 	}()
 	go func() {
 		time.Sleep(time.Second * 2)
-		goPoolObject.ReloadQueue()
+		//goPoolObject.ReloadQueue()
 		for i := 550; i <= 566; i++ {
 			goPoolObject.Push(i)
 		}
-		goPoolObject.Close()
+		//goPoolObject.Close()
 	}()
 	go func() {
 		// 3少后自动结束
