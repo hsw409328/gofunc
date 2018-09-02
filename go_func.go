@@ -23,6 +23,8 @@ import (
 	"github.com/bobesa/go-domain-util/domainutil"
 	"regexp"
 	"net"
+	"os"
+	"bufio"
 )
 
 // md5加密
@@ -507,4 +509,23 @@ func SliceMerge(s1 []string, s2 []string) []string {
 	copy(slice, s1)
 	copy(slice[len(s1):], s2)
 	return slice
+}
+
+// 按行进行读取文件
+func ReadLinesForFile(file string) ([]string, error) {
+	var lines []string
+	fi, err := os.Open(file)
+	if err != nil {
+		return nil, err
+	}
+	defer fi.Close()
+	br := bufio.NewReader(fi)
+	for {
+		line, _, c := br.ReadLine()
+		if c == io.EOF {
+			break
+		}
+		lines = append(lines, string(line))
+	}
+	return lines, nil
 }
