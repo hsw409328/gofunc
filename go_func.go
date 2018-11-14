@@ -412,6 +412,12 @@ func ContainObjectInTarget(obj interface{}, target interface{}) (bool) {
 	return false
 }
 
+// 判断字符串是否在另外一个字符串出现
+func Strpos(str string, needStr interface{}) bool {
+	needTmpStr := InterfaceToString(needStr)
+	return strings.Contains(str, needTmpStr)
+}
+
 // 判断是否为域名
 func IsDomain(str string) bool {
 	p := regexp.MustCompile(`\A[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+\z`)
@@ -481,7 +487,6 @@ func MapOrSliceToJsonString(mapData interface{}) (string, error) {
 	return string(byteBody), nil
 }
 
-
 // 获取本地IP
 func GetLocalIp() string {
 	ipStr := "127.0.0.1"
@@ -499,7 +504,6 @@ func GetLocalIp() string {
 	}
 	return ipStr
 }
-
 
 // 合并两个String-Slice
 func SliceMerge(s1 []string, s2 []string) []string {
