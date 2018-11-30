@@ -1,4 +1,4 @@
-package hlog
+package go_hlog
 
 import (
 	"fmt"
@@ -33,23 +33,23 @@ type Logger struct {
 	w  io.Writer
 }
 
-func New(w io.Writer) *Logger {
+func NewLogger(w io.Writer) *Logger {
 	hlogObject := &Logger{w: w}
 	hlogObject.SetLogFile()
 	return hlogObject
 }
 
-func GetLogger(fileName string) (logger *Logger) {
+func GetInstance(fileName string) (logger *Logger) {
 	if fileName != "" {
 		f, err := os.OpenFile(fileName, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
 		if err != nil {
-			logger = New(os.Stdout)
+			logger = NewLogger(os.Stdout)
 			logger.Error("os open file ", err.Error())
 		} else {
-			logger = New(f)
+			logger = NewLogger(f)
 		}
 	} else {
-		logger = New(os.Stdout)
+		logger = NewLogger(os.Stdout)
 	}
 
 	return
