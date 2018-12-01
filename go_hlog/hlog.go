@@ -61,7 +61,7 @@ func (ctx *Logger) SetLogFile() {
 	ctx.lg.SetFlags(log.Lshortfile | log.LstdFlags)
 }
 
-func (ctx *Logger) Verbose(tag string, message string) {
+func (ctx *Logger) Verbose(tag string, message interface{}) {
 	level := ctx.formatLevel(verbose)
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), message))
 }
@@ -71,7 +71,7 @@ func (ctx *Logger) VerboseF(tag string, format string, a ...interface{}) {
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), fmt.Sprintf(format, a...)))
 }
 
-func (ctx *Logger) Trace(tag string, message string) {
+func (ctx *Logger) Trace(tag string, message interface{}) {
 	level := ctx.formatLevel(trace)
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), message))
 }
@@ -80,7 +80,7 @@ func (ctx *Logger) TraceF(tag string, format string, a ...interface{}) {
 	level := ctx.formatLevel(trace)
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), fmt.Sprintf(format, a...)))
 }
-func (ctx *Logger) Error(tag string, message string) {
+func (ctx *Logger) Error(tag string, message interface{}) {
 	level := ctx.formatLevel(errors)
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), message))
 }
@@ -90,7 +90,7 @@ func (ctx *Logger) ErrorF(tag string, format string, a ...interface{}) {
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), fmt.Sprintf(format, a...)))
 }
 
-func (ctx *Logger) Warn(tag string, message string) {
+func (ctx *Logger) Warn(tag string, message interface{}) {
 	level := ctx.formatLevel(warn)
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), message))
 }
@@ -100,7 +100,7 @@ func (ctx *Logger) WarnF(tag string, format string, a ...interface{}) {
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), fmt.Sprintf(format, a...)))
 }
 
-func (ctx *Logger) Info(tag string, message string) {
+func (ctx *Logger) Info(tag string, message interface{}) {
 	level := ctx.formatLevel(info)
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), message))
 }
@@ -110,7 +110,7 @@ func (ctx *Logger) InfoF(tag string, format string, a ...interface{}) {
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), fmt.Sprintf(format, a...)))
 }
 
-func (ctx *Logger) Debug(tag string, message string) {
+func (ctx *Logger) Debug(tag string, message interface{}) {
 	level := ctx.formatLevel(debug)
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), message))
 }
@@ -120,7 +120,7 @@ func (ctx *Logger) DebugF(tag string, format string, a ...interface{}) {
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), fmt.Sprintf(format, a...)))
 }
 
-func (ctx *Logger) Asset(tag string, message string) {
+func (ctx *Logger) Asset(tag string, message interface{}) {
 	level := ctx.formatLevel(assert)
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level, tag), message))
 }
