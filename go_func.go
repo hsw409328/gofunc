@@ -1,30 +1,30 @@
 package gofunc
 
 import (
-	"time"
-	"reflect"
+	"bufio"
 	"crypto/md5"
-	"encoding/hex"
-	"crypto/sha1"
-	"io"
 	"crypto/rand"
+	"crypto/sha1"
 	"encoding/base64"
-	"strings"
-	"strconv"
+	"encoding/hex"
 	"encoding/json"
-	"net/url"
-	"net/http"
-	"log"
-	"path"
-	"io/ioutil"
-	"gopkg.in/mgo.v2/bson"
-	"github.com/m3ng9i/go-utils/encoding"
 	"errors"
 	"github.com/bobesa/go-domain-util/domainutil"
-	"regexp"
+	"github.com/m3ng9i/go-utils/encoding"
+	"gopkg.in/mgo.v2/bson"
+	"io"
+	"io/ioutil"
+	"log"
 	"net"
+	"net/http"
+	"net/url"
 	"os"
-	"bufio"
+	"path"
+	"reflect"
+	"regexp"
+	"strconv"
+	"strings"
+	"time"
 )
 
 // md5加密
@@ -39,6 +39,16 @@ func Sha1Encrypt(str string) string {
 	strSha1 := sha1.New()
 	strSha1.Write([]byte(str))
 	return hex.EncodeToString(strSha1.Sum(nil))
+}
+
+//获取当日期
+func CurrentDate() string {
+	return time.Now().Format("2006-01-02")
+}
+
+//获取当前时间
+func CurrentTime() string {
+	return time.Now().Format("2006-01-02 15:04:05")
 }
 
 // 将日期格式化为时间戳
