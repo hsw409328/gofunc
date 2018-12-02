@@ -23,6 +23,8 @@ func TestGetInstance(t *testing.T) {
 func TestGetInstance2(t *testing.T) {
 	t1 := GetInstance("test.log")
 	t1.Debug("debug", "test!!!!")
+	t1.Error("error", "test!!!!")
+
 }
 
 func BenchmarkLogger_Error(b *testing.B) {

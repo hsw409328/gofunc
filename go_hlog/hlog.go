@@ -20,11 +20,11 @@ const (
 
 const (
 	verbose = "[VERB]"
-	trace   = "[TRAC]"
-	errors  = "[ERRO]"
+	trace   = "[TRACE]"
+	errors  = "[ERROR]"
 	warn    = "[WARN]"
 	info    = "[INFO]"
-	debug   = "[DBUG]"
+	debug   = "[DEBUG]"
 	assert  = "[ASST]"
 )
 
