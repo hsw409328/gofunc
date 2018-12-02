@@ -12,18 +12,18 @@ func TestTrace(t *testing.T) {
 		t.Error(err)
 	}
 	hlogPointer := NewLogger(f)
-	hlogPointer.Trace("test", "test")
+	hlogPointer.Trace( "test")
 }
 
 func TestGetInstance(t *testing.T) {
 	t1 := GetInstance("")
-	t1.Debug("debug", "test!!!!")
+	t1.Debug("test!!!!")
 }
 
 func TestGetInstance2(t *testing.T) {
 	t1 := GetInstance("test.log")
-	t1.Debug("debug", "test!!!!")
-	t1.Error("error", "test!!!!")
+	t1.Debug( "test!!!!")
+	t1.Error( "test!!!!")
 
 }
 
@@ -32,6 +32,6 @@ func BenchmarkLogger_Error(b *testing.B) {
 	b.StartTimer()
 	t1 := GetInstance("")
 	for i := 0; i < b.N; i++ {
-		t1.Error("system","error!!!!")
+		t1.Error("error!!!!")
 	}
 }
