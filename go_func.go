@@ -148,7 +148,7 @@ func InterfaceToString(inter interface{}) (s string) {
 		tempStr = strconv.FormatFloat(inter.(float64), 'f', -1, 64)
 		break
 	case float32:
-		tempStr = strconv.FormatFloat(inter.(float64), 'f', -1, 32)
+		tempStr = strconv.FormatFloat(float64(inter.(float32)), 'f', -1, 64)
 		break
 	case int64:
 		tempStr = strconv.FormatInt(inter.(int64), 10)
