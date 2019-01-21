@@ -61,9 +61,9 @@ func (ctx *Logger) SetLogFile() {
 	ctx.lg.SetFlags(log.Lshortfile | log.LstdFlags)
 }
 
-func (ctx *Logger) Verbose(message interface{}) {
+func (ctx *Logger) Verbose(message ...interface{}) {
 	level := ctx.formatLevel(verbose)
-	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), message))
+	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprint(message...)))
 }
 
 func (ctx *Logger) VerboseF(format string, a ...interface{}) {
@@ -71,18 +71,18 @@ func (ctx *Logger) VerboseF(format string, a ...interface{}) {
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprintf(format, a...)))
 }
 
-func (ctx *Logger) Trace(message interface{}) {
+func (ctx *Logger) Trace(message ...interface{}) {
 	level := ctx.formatLevel(trace)
-	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), message))
+	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprint(message...)))
 }
 
 func (ctx *Logger) TraceF(format string, a ...interface{}) {
 	level := ctx.formatLevel(trace)
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprintf(format, a...)))
 }
-func (ctx *Logger) Error(message interface{}) {
+func (ctx *Logger) Error(message ...interface{}) {
 	level := ctx.formatLevel(errors)
-	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), message))
+	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprint(message...)))
 }
 
 func (ctx *Logger) ErrorF(format string, a ...interface{}) {
@@ -90,9 +90,9 @@ func (ctx *Logger) ErrorF(format string, a ...interface{}) {
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprintf(format, a...)))
 }
 
-func (ctx *Logger) Warn(message interface{}) {
+func (ctx *Logger) Warn(message ...interface{}) {
 	level := ctx.formatLevel(warn)
-	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), message))
+	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprint(message...)))
 }
 
 func (ctx *Logger) WarnF(format string, a ...interface{}) {
@@ -100,9 +100,9 @@ func (ctx *Logger) WarnF(format string, a ...interface{}) {
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprintf(format, a...)))
 }
 
-func (ctx *Logger) Info(message interface{}) {
+func (ctx *Logger) Info(message ...interface{}) {
 	level := ctx.formatLevel(info)
-	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), message))
+	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprint(message...)))
 }
 
 func (ctx *Logger) InfoF(format string, a ...interface{}) {
@@ -110,9 +110,9 @@ func (ctx *Logger) InfoF(format string, a ...interface{}) {
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprintf(format, a...)))
 }
 
-func (ctx *Logger) Debug(message interface{}) {
+func (ctx *Logger) Debug(message ...interface{}) {
 	level := ctx.formatLevel(debug)
-	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), message))
+	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprint(message...)))
 }
 
 func (ctx *Logger) DebugF(format string, a ...interface{}) {
@@ -120,9 +120,9 @@ func (ctx *Logger) DebugF(format string, a ...interface{}) {
 	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprintf(format, a...)))
 }
 
-func (ctx *Logger) Asset(message interface{}) {
+func (ctx *Logger) Asset(message ...interface{}) {
 	level := ctx.formatLevel(assert)
-	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), message))
+	ctx.lg.Output(2, fmt.Sprintln(ctx.formatPrefix(level), fmt.Sprint(message...)))
 }
 
 func (ctx *Logger) AssetF(format string, a ...interface{}) {

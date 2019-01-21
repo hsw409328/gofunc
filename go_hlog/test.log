@@ -1,5 +1,2 @@
-2018/11/30 16:29:28 hlog.go:117: 2018-11-30 16:29:28.2 [94m[DBUG][0m debug: test!!!!
-2018/11/30 16:58:30 hlog_test.go:25: [94m[DBUG][0m debug: test!!!!
-2018/11/30 17:25:30 hlog_test.go:25: [94m[DBUG][0m debug: test!!!!
-2018/12/02 11:20:45 hlog_test.go:25: [94m[DBUG][0m debug: test!!!!
-2018/12/02 11:20:45 hlog_test.go:26: [91m[ERRO][0m error: test!!!!
+2019/01/21 16:42:41 hlog_test.go:25: [94m[DEBUG][0m : test!!!!12312312312312312
+2019/01/21 16:42:41 hlog_test.go:26: [91m[ERROR][0m : test!!!!

@@ -17,12 +17,12 @@ func TestTrace(t *testing.T) {
 
 func TestGetInstance(t *testing.T) {
 	t1 := GetInstance("")
-	t1.Debug("test!!!!")
+	t1.Debug("test!!!!","123123123",12312312)
 }
 
 func TestGetInstance2(t *testing.T) {
 	t1 := GetInstance("test.log")
-	t1.Debug( "test!!!!")
+	t1.Debug( "test!!!!","123123123",12312312)
 	t1.Error( "test!!!!")
 
 }
