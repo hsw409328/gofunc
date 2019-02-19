@@ -25,3 +25,11 @@ func TestSha1Encrypt(t *testing.T) {
 		t.Error("test sha1 encrypt failed")
 	}
 }
+
+func TestRandomString(t *testing.T) {
+	t.Log(RandomString())
+	t.Log(RandomString())
+	t.Log(RandomString())
+	t.Log(RandomString())
+	t.Log(RandomString())
+}

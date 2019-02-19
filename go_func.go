@@ -9,12 +9,14 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/bobesa/go-domain-util/domainutil"
 	"github.com/m3ng9i/go-utils/encoding"
 	"gopkg.in/mgo.v2/bson"
 	"io"
 	"io/ioutil"
 	"log"
+	mr "math/rand"
 	"net"
 	"net/http"
 	"net/url"
@@ -545,4 +547,11 @@ func ReadLinesForFile(file string) ([]string, error) {
 		lines = append(lines, string(line))
 	}
 	return lines, nil
+}
+
+// 获取随机数(8位)
+func RandomString() string {
+	RndInit := mr.New(mr.NewSource(time.Now().UnixNano()))
+	rndStrResult := fmt.Sprintf("%08v", RndInit.Int31n(100000000))
+	return rndStrResult
 }
