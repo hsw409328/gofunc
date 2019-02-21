@@ -33,3 +33,7 @@ func TestRandomString(t *testing.T) {
 	t.Log(RandomString())
 	t.Log(RandomString())
 }
+
+func TestGetCurrentPath(t *testing.T) {
+	t.Log(GetCurrentPath())
+}

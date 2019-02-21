@@ -24,6 +24,7 @@ import (
 	"path"
 	"reflect"
 	"regexp"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -554,4 +555,10 @@ func RandomString() string {
 	RndInit := mr.New(mr.NewSource(time.Now().UnixNano()))
 	rndStrResult := fmt.Sprintf("%08v", RndInit.Int31n(100000000))
 	return rndStrResult
+}
+
+func GetCurrentPath() string {
+	_, filename, _, _ := runtime.Caller(1)
+
+	return path.Dir(filename)
 }
