@@ -13,3 +13,6 @@ go get github.com/hsw409328/gofunc
 
 # 新增
   - go pool
+  - go jwt
+  - go plugin
+  - go http
