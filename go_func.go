@@ -2,6 +2,7 @@ package gofunc
 
 import (
 	"bufio"
+	"bytes"
 	"crypto/md5"
 	"crypto/rand"
 	"crypto/sha1"
@@ -10,12 +11,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/bobesa/go-domain-util/domainutil"
-	"github.com/m3ng9i/go-utils/encoding"
+	"golang.org/x/text/encoding/simplifiedchinese"
+	"golang.org/x/text/transform"
 	"gopkg.in/mgo.v2/bson"
 	"io"
 	"io/ioutil"
-	"log"
 	mr "math/rand"
 	"net"
 	"net/http"
@@ -197,22 +197,22 @@ func JsonToString(inter interface{}) (string, error) {
 // UTF8 Slice 转为 GBK Slice
 func UTF8SliceToGBKSlice(strSlice []string) []string {
 	strString := strings.Join(strSlice, ",")
-	by, err := encoding.Utf8ToGbk([]byte(strString))
-	if err != nil {
-		log.Println("utf8 to gbk err: " + err.Error())
+	reader := transform.NewReader(bytes.NewReader([]byte(strString)), simplifiedchinese.GBK.NewEncoder())
+	d, e := ioutil.ReadAll(reader)
+	if e != nil {
 		return strSlice
 	}
-	return strings.Split(string(by), ",")
+	return strings.Split(string(d), ",")
 }
 
 // UTF8 字符串 转为 GBK 字符串
 func UTF8StringToGBKString(str string) string {
-	by, err := encoding.Utf8ToGbk([]byte(str))
-	if err != nil {
-		log.Println("utf8 to gbk err: " + err.Error())
+	reader := transform.NewReader(bytes.NewReader([]byte(str)), simplifiedchinese.GBK.NewEncoder())
+	d, e := ioutil.ReadAll(reader)
+	if e != nil {
 		return str
 	}
-	return string(by)
+	return string(d)
 }
 
 func ConvertToMap(model interface{}) bson.M {
@@ -358,7 +358,7 @@ func GetDomain(urlStr string) (string, error) {
 		return "", err
 	}
 	//判断是否为域名
-	boolErr := domainutil.HasSubdomain(urlObject.Host)
+	boolErr := IsDomain(urlObject.Host)
 	if !boolErr {
 		return "", errors.New("非域名")
 	}
@@ -561,4 +561,24 @@ func GetCurrentPath() string {
 	_, filename, _, _ := runtime.Caller(1)
 
 	return path.Dir(filename)
+}
+
+// 产生正则实体
+func RegexpCompile(str string) *regexp.Regexp {
+	return regexp.MustCompile("^" + str + "$")
+}
+
+// 判断val是否能正确匹配exp中的正则表达式。
+// val可以是[]byte, []rune, string类型。
+func RegexpIsMatch(exp *regexp.Regexp, val interface{}) bool {
+	switch v := val.(type) {
+	case []rune:
+		return exp.MatchString(string(v))
+	case []byte:
+		return exp.Match(v)
+	case string:
+		return exp.MatchString(v)
+	default:
+		return false
+	}
 }
