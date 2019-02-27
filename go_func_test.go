@@ -37,3 +37,11 @@ func TestRandomString(t *testing.T) {
 func TestGetCurrentPath(t *testing.T) {
 	t.Log(GetCurrentPath())
 }
+
+func TestGetDomain(t *testing.T) {
+	s,err := GetDomain("http://www.51hsw.com/xxx/xxx")
+	if err!=nil{
+		t.Error(err)
+	}
+	t.Log(s)
+}
