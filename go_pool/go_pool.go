@@ -42,12 +42,11 @@ func (g *GoPool) Run() {
 			for {
 				select {
 				case v, ok := <-g.queueChan:
-					if ok {
-						g.callFunc(v)
-					} else {
+					if !ok {
 						goto Loop
-					}
 
+					}
+					g.callFunc(v)
 				}
 			}
 		Loop:

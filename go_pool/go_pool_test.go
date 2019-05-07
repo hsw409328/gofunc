@@ -12,7 +12,7 @@ func CallFunc(val interface{}) {
 func TestNewGoPool(t *testing.T) {
 	goPoolObject := NewGoPool(50, CallFunc)
 	go func() {
-		for i := 0; i <= 100; i++ {
+		for i := 0; i <= 10; i++ {
 			goPoolObject.Push(i)
 		}
 		goPoolObject.Close()
