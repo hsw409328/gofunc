@@ -1,5 +1,9 @@
 package go_pool
 
+import (
+	"sync"
+)
+
 // 连接池
 // 并发数
 // 队列
@@ -8,16 +12,16 @@ package go_pool
 type GoPool struct {
 	concurrencyNumber int
 	queueChan         chan interface{}
-	StopChan          chan int
 	callFunc          func(interface{})
+	wg                sync.WaitGroup
 }
 
 func NewGoPool(concurrencyNumber int, f func(interface{})) *GoPool {
 	return &GoPool{
 		concurrencyNumber: concurrencyNumber,
 		queueChan:         make(chan interface{}),
-		StopChan:          make(chan int, 1),
 		callFunc:          f,
+		wg:                sync.WaitGroup{},
 	}
 }
 
@@ -31,24 +35,24 @@ func (g *GoPool) Close() {
 	close(g.queueChan)
 }
 
-// 重新打开channel
-func (g *GoPool) ReloadQueue() {
-	g.queueChan = make(chan interface{})
-}
-
 func (g *GoPool) Run() {
+	g.wg.Add(g.concurrencyNumber)
 	for i := 0; i < g.concurrencyNumber; i++ {
-		go func(w int) {
+		go func() {
 			for {
 				select {
-				case queueVal, ok := <-g.queueChan:
+				case v, ok := <-g.queueChan:
 					if ok {
-						g.callFunc(queueVal)
+						g.callFunc(v)
+					} else {
+						goto Loop
 					}
+
 				}
 			}
-		}(i)
+		Loop:
+			g.wg.Done()
+		}()
 	}
-	// 阻塞
-	<-g.StopChan
+	g.wg.Wait()
 }
