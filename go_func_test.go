@@ -39,9 +39,17 @@ func TestGetCurrentPath(t *testing.T) {
 }
 
 func TestGetDomain(t *testing.T) {
-	s,err := GetDomain("http://www.51hsw.com/xxx/xxx")
-	if err!=nil{
+	s, err := GetDomain("http://www.51hsw.com/xxx/xxx")
+	if err != nil {
 		t.Error(err)
 	}
 	t.Log(s)
+}
+
+func TestConnectLastWord(t *testing.T) {
+	data := "test"
+	expect := "test/"
+	if ConnectLastWord(data, "/") != expect {
+		t.Error("func err")
+	}
 }

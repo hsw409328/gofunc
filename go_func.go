@@ -582,3 +582,12 @@ func RegexpIsMatch(exp *regexp.Regexp, val interface{}) bool {
 		return false
 	}
 }
+
+// 连接最后一个字符
+func ConnectLastWord(oldString, lastWord string) string {
+	oldSliceString := strings.Split(oldString, "")
+	if oldSliceString[len(oldSliceString)-1] == lastWord {
+		return oldString
+	}
+	return oldString + lastWord
+}
