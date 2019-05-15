@@ -591,3 +591,12 @@ func ConnectLastWord(oldString, lastWord string) string {
 	}
 	return oldString + lastWord
 }
+
+// 连接第一个字符
+func ConnectFirstWord(oldString, firstWord string) string {
+	oldSliceString := strings.Split(oldString, "")
+	if oldSliceString[0] == firstWord {
+		return oldString
+	}
+	return firstWord + oldString
+}

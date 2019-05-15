@@ -53,3 +53,10 @@ func TestConnectLastWord(t *testing.T) {
 		t.Error("func err")
 	}
 }
+func TestConnectFirstWord(t *testing.T) {
+	data := "test"
+	expect := "/test"
+	if ConnectFirstWord(data, "/") != expect {
+		t.Error("func err")
+	}
+}
