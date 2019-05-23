@@ -1,6 +1,9 @@
 package gofunc
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestIsDomain(t *testing.T) {
 	data := "www.51hsw.com"
@@ -57,6 +60,15 @@ func TestConnectFirstWord(t *testing.T) {
 	data := "test"
 	expect := "/test"
 	if ConnectFirstWord(data, "/") != expect {
+		t.Error("func err")
+	}
+}
+
+func TestGetStartTimeAndLastTimeList(t *testing.T) {
+	l := StringToTime("2019-01-03 00:00:00")
+	e := StringToTime("2019-01-05 00:00:00")
+	expect := []string{"2019-01-03", "2019-01-04", "2019-01-05"}
+	if strings.Join(GetStartTimeAndLastTimeList(l, e), "-") != strings.Join(expect, "-") {
 		t.Error("func err")
 	}
 }

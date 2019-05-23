@@ -600,3 +600,55 @@ func ConnectFirstWord(oldString, firstWord string) string {
 	}
 	return firstWord + oldString
 }
+
+// 获取两个日期的区间值  支持秒级时间戳，毫秒级暂时不支持
+func GetStartTimeAndLastTimeList(startTime, endTime int64) []string {
+	var result = make([]string, 0)
+	if endTime < startTime {
+		return []string{time.Now().Format("2006-01-02 15:04:05")}
+	}
+	dayGap := int((endTime - startTime) / (24 * 60 * 60))
+	//计算出相差天数
+	//根据相差天数，从开始时间进行遍历获取
+	//将startTime 转为time.Time类型
+	t := time.Unix(startTime, 0)
+	for i := 0; i <= dayGap; i++ {
+		result = append(result, time.Unix(CustomLastTime(t, "d", i), 0).Format("2006-01-02"))
+	}
+	return result
+}
+
+/**
+* 获取定制的的时间，时间戳
+* @params customTime 自定义时间对象
+* @params sign string y,m,d,h 分别代表年，月，日, 小时
+* @params num int 取多少天以前 或者 多少天以后 例如：-1 1天前 1 1天后
+*
+* @return unix.Time int64
+*
+ */
+func CustomLastTime(customTime time.Time, sign string, num int) int64 {
+	timeNow := customTime
+	year, month, day := timeNow.Date()
+	t := time.Date(year, month, day, 0, 0, 0, 0, timeNow.Location())
+	var tmp time.Time
+	switch sign {
+	case "y":
+		tmp = t.AddDate(num, 0, 0)
+		break
+	case "m":
+		tmp = t.AddDate(0, num, 0)
+		break
+	case "d":
+		tmp = t.AddDate(0, 0, num)
+		break
+	case "h":
+		lastSecond := num * 60 * 60
+		tmpUnixInt := timeNow.Unix() + int64(lastSecond)
+		tmp = StringToTimeObject(TimeUnixIntToString(tmpUnixInt), "")
+	default:
+		tmp = t.AddDate(0, 0, num)
+		break
+	}
+	return tmp.Unix()
+}
