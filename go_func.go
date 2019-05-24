@@ -585,6 +585,9 @@ func RegexpIsMatch(exp *regexp.Regexp, val interface{}) bool {
 
 // 连接最后一个字符
 func ConnectLastWord(oldString, lastWord string) string {
+	if oldString == "" {
+		return lastWord
+	}
 	oldSliceString := strings.Split(oldString, "")
 	if oldSliceString[len(oldSliceString)-1] == lastWord {
 		return oldString
@@ -594,6 +597,9 @@ func ConnectLastWord(oldString, lastWord string) string {
 
 // 连接第一个字符
 func ConnectFirstWord(oldString, firstWord string) string {
+	if oldString == "" {
+		return firstWord
+	}
 	oldSliceString := strings.Split(oldString, "")
 	if oldSliceString[0] == firstWord {
 		return oldString
