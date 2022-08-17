@@ -413,7 +413,7 @@ func TimeSubDays(t1, t2 time.Time) int {
 }
 
 // 判断obj是否在target中，target支持的类型arrary,slice,map
-func ContainObjectInTarget(obj interface{}, target interface{}) (bool) {
+func ContainObjectInTarget(obj interface{}, target interface{}) bool {
 	targetValue := reflect.ValueOf(target)
 	switch reflect.TypeOf(target).Kind() {
 	case reflect.Slice, reflect.Array:
@@ -657,4 +657,94 @@ func CustomLastTime(customTime time.Time, sign string, num int) int64 {
 		break
 	}
 	return tmp.Unix()
+}
+
+/**
+ * 验证车架号
+ * @params vinStr 车架号
+ */
+func CheckVIN(vinStr string) bool {
+	if len(vinStr) != 17 {
+		return false
+	}
+	symbol, weight, verify, sum := 0, 0, 0, 0
+	isRepeat := true
+	vin := strings.Split(vinStr, "")
+	positionE := ([]rune(vin[8]))[0]
+	if positionE >= 48 && positionE <= 57 {
+		verify = int(positionE - 48) //0到9
+	} else if positionE == 88 {
+		verify = 10 //X
+	} else {
+		return false
+	}
+
+	for i := 0; i < len(vin); i++ {
+		if i < 7 {
+			weight = 8 - i
+		} else if i > 8 {
+			weight = 18 - i
+		} else if i == 7 {
+			weight = 10
+		} else {
+			continue
+		}
+
+		tmp := ([]rune(vin[i]))[0]
+		if tmp >= 48 && tmp <= 57 {
+			symbol = int(tmp - 48) //0-9
+		} else if tmp >= 65 && tmp <= 72 {
+			symbol = int(tmp - 64) //A-H
+		} else if tmp >= 74 && tmp <= 82 && tmp != 79 && tmp != 81 {
+			symbol = int(tmp - 73) //J-R不含O,Q
+		} else if tmp >= 83 && tmp <= 90 {
+			symbol = int(tmp - 81) //S-Z
+		} else {
+			return false
+		}
+
+		sum += symbol * weight
+
+		if isRepeat && i > 0 {
+			tmpI := 0
+			if i != 9 {
+				tmpI = 1
+			} else {
+				tmpI = 2
+			}
+			isRepeat = tmp == ([]rune(vin[i-tmpI]))[0]
+		}
+	}
+	if isRepeat {
+		return false
+	}
+	return verify == sum%11
+}
+
+/**
+ * 验证银行卡号
+* @params cardNum 银行卡号
+*/
+func CheckBankCarNum(cardNum string) bool {
+	sum := int64(0)
+	length := len(cardNum)
+	index := length - 1
+	for {
+		t, err := strconv.ParseInt(string(cardNum[index]), 10, 64)
+		if err != nil {
+			return false
+		}
+		if index%2 == 0 {
+			t = t * 2
+			if t >= 10 {
+				t = t%10 + t/10
+			}
+		}
+		sum += t
+		if index <= 0 {
+			break
+		}
+		index--
+	}
+	return sum%10 == 0
 }
